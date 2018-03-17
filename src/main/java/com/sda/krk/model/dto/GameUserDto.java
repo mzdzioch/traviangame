@@ -4,9 +4,6 @@ public class GameUserDto {
     private String email;
     private String passwordHash;
 
-    public GameUserDto() {
-    }
-
     public String getEmail() {
         return email;
     }
