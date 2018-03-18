@@ -21,7 +21,7 @@ public class Colony {
     @ManyToOne
     private GameUser owner;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ColonyLot> lotList;
 
     public Colony() {

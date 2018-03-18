@@ -6,15 +6,14 @@ import com.sda.webgame.model.response.ResponseMessage;
 import com.sda.webgame.model.response.StatusResponse;
 import com.sda.webgame.services.IGameWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/world/")
+@CrossOrigin
 public class GameWorldController {
 
     @Autowired
@@ -31,5 +30,26 @@ public class GameWorldController {
         }
 
     }
+
+
+    @RequestMapping(path = "/getAllWorlds", method = RequestMethod.GET)
+    public ResponseMessage<List<GameWorld>> getAllWorlds(){
+        Optional<List<GameWorld>> gameWorlds = gameWorldService.getAllWorlds();
+
+        if(gameWorlds.isPresent()){
+            return new ResponseMessage<>(
+                    StatusResponse.OK,
+                    null,
+                    gameWorlds.get()
+            );
+        } else {
+            return new ResponseMessage<>(
+                    StatusResponse.SERVER_ERROR,
+                    "Unable to retrieve worlds",
+                    null
+            );
+        }
+    }
+
 
 }
