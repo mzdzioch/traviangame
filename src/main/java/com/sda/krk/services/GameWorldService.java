@@ -38,4 +38,10 @@ public class GameWorldService implements IGameWorldService {
         }
         return Optional.ofNullable(gameWorld);
     }
+
+    @Override
+    public Optional<List<GameWorld>> getAllWolrds() {
+        List<GameWorld> worldList = gameWorldRepository.getAllBy();
+        return Optional.ofNullable(worldList);
+    }
 }
