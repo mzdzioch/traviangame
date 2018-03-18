@@ -1,6 +1,9 @@
 package com.sda.krk.model;
 
+import com.sda.krk.model.factory.ColonyLotFactory;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Colony {
@@ -18,6 +21,9 @@ public class Colony {
     @ManyToOne
     private GameUser owner;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ColonyLot> lotList;
+
     public Colony() {
     }
 
@@ -26,6 +32,7 @@ public class Colony {
         this.gameWorldField = gameWorldField;
         this.maxSlots = maxSlots;
         this.owner = owner;
+        this.lotList = ColonyLotFactory.createEmptyLots(this);
     }
 
     public Long getId() {

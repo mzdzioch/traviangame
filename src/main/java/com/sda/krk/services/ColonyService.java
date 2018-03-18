@@ -46,4 +46,10 @@ public class ColonyService implements IColonyService {
         Colony createdColony = colonyRepository.save(ColonyFactory.createColony(gameUser.get(), field, createColonyDto));
         return Optional.ofNullable(createdColony);
     }
+
+    @Override
+    public Optional<Colony> getColony(Long id) {
+        Optional<Colony> colony = colonyRepository.getColonyById(id);
+        return colony;
+    }
 }

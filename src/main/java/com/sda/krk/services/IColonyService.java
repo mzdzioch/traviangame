@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface IColonyService {
     Optional<Colony> tryCreateColony(CreateColonyDto createColonyDto);
+
+    Optional<Colony> getColony(Long id);
 }
