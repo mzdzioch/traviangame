@@ -1,6 +1,9 @@
 package com.sda.webgame.model;
 
+import com.sda.webgame.model.factory.ColonyLotFactory;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Colony {
@@ -18,6 +21,9 @@ public class Colony {
     @ManyToOne
     private GameUser owner;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private List<ColonyLot> lotList;
+
     public Colony() {
     }
 
@@ -26,6 +32,7 @@ public class Colony {
         this.maxSlots = maxSlots;
         this.field = field;
         this.owner = owner;
+        this.lotList = ColonyLotFactory.createEmptyColonyLots(this);
     }
 
     public Long getId() {
@@ -66,5 +73,13 @@ public class Colony {
 
     public void setOwner(GameUser owner) {
         this.owner = owner;
+    }
+
+    public List<ColonyLot> getLotList() {
+        return lotList;
+    }
+
+    public void setLotList(List<ColonyLot> lotList) {
+        this.lotList = lotList;
     }
 }

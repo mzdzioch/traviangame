@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface IColonyService {
 
     public Optional<Colony> tryCreateColony(CreateColonyDto dto);
+
+    Optional<Colony> getColony(Long id);
 }
