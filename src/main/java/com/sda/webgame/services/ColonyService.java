@@ -84,7 +84,7 @@ public class ColonyService implements IColonyService {
 
     @Override
     public Optional<ColonyLot> createBuilding(CreateBuildingDto dto) {
-        Optional<ColonyLot> colonyLot = colonyRepository.getById(dto.getLotId());
+        Optional<ColonyLot> colonyLot = colonyLotRepository.getById(dto.getLotId());
         if(colonyLot.isPresent()){
             ColonyLot lot = colonyLot.get();
 
@@ -103,7 +103,7 @@ public class ColonyService implements IColonyService {
 
     @Override
     public Optional<ColonyLot> getLot(Long id) {
-        Optional<ColonyLot> colonyLot = colonyRepository.getById(id);
+        Optional<ColonyLot> colonyLot = colonyLotRepository.getById(id);
         return colonyLot;
     }
 }

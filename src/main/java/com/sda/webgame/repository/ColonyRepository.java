@@ -20,5 +20,4 @@ public interface ColonyRepository extends CrudRepository<Colony, Long>{
 
     Optional<Colony> getColonyByField(GameWorldField gameWorldField);
 
-    Optional<ColonyLot> getById(Long lotId);
 }

@@ -1,5 +1,6 @@
 package com.sda.webgame.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -16,11 +17,17 @@ public class ColonyLot {
 
     private int level;
 
+    //non null - upgrading
+    //null - not upgrading
+    @JsonFormat(pattern = "yyyy-MM-HH-mm-ss")
     private LocalDateTime upgradeFinishTIme;
 
     @ManyToOne
     @JsonIgnore
-    private Colony colony;
+    private Colony colony; //do ktorej koloni nalezy
+
+    public ColonyLot() {
+    }
 
     public ColonyLot(BuildingType buildingType, int level, Colony colony) {
         this.buildingType = buildingType;
