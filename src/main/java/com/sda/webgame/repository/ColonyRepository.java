@@ -1,6 +1,7 @@
 package com.sda.webgame.repository;
 
 import com.sda.webgame.model.Colony;
+import com.sda.webgame.model.ColonyLot;
 import com.sda.webgame.model.GameWorld;
 import com.sda.webgame.model.GameWorldField;
 import org.springframework.data.repository.CrudRepository;
@@ -16,4 +17,8 @@ public interface ColonyRepository extends CrudRepository<Colony, Long>{
     boolean existsColonyByField(GameWorldField field);
 
     Optional<Colony> getColonyById(Long id);
+
+    Optional<Colony> getColonyByField(GameWorldField gameWorldField);
+
+    Optional<ColonyLot> getById(Long lotId);
 }

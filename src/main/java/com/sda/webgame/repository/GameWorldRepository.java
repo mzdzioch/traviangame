@@ -13,6 +13,6 @@ public interface GameWorldRepository extends CrudRepository<GameWorld, Long>{
 
  List<GameWorld> getAllBy();
 
-
+ GameWorld getById(Long id);
 
 }

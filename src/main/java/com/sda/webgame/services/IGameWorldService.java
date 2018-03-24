@@ -1,6 +1,7 @@
 package com.sda.webgame.services;
 
 import com.sda.webgame.model.GameWorld;
+import com.sda.webgame.model.GameWorldField;
 import com.sda.webgame.model.dto.GameWorldDto;
 
 import javax.swing.text.html.Option;
@@ -12,5 +13,7 @@ public interface IGameWorldService {
 
     Optional<List<GameWorld>> getAllWorlds();
 
-    Optional<List<GameWorld>> getAllWorldsById(Long id);
+    Optional<List<GameWorldField>> getAllFieldsOfWorld(Long id);
+
+    Optional<GameWorldField> getFieldWithId(Long fieldId);
 }

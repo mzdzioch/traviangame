@@ -43,9 +43,6 @@ public class GameWorldService implements IGameWorldService {
             Logger.getLogger(getClass()).error("Duplicate entry name.", exception);
 
         }
-
-
-
         return Optional.ofNullable(world);
     }
 
@@ -54,4 +51,26 @@ public class GameWorldService implements IGameWorldService {
         List<GameWorld> worlds = gameWorldRepository.getAllBy();
         return Optional.ofNullable(worlds);
     }
+
+    @Override
+    public Optional<List<GameWorldField>> getAllFieldsOfWorld(Long id) {
+
+        GameWorld world = gameWorldRepository.getById(id);
+
+        if(world == null){
+            return Optional.empty();
+        }
+        List<GameWorldField> fields = gameWorldFieldRepository.getAllByWorld(world);
+
+        return Optional.ofNullable(fields);
+
+    }
+
+    @Override
+    public Optional<GameWorldField> getFieldWithId(Long fieldId) {
+        Optional<GameWorldField> field = gameWorldFieldRepository.getGameWorldFieldById(fieldId);
+        return field;
+    }
+
+
 }
