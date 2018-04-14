@@ -7,15 +7,13 @@ import com.sda.webgame.model.response.StatusResponse;
 import com.sda.webgame.services.GameUserService;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.RequestMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/user/")
+@CrossOrigin //kominukacja pomiedzy front-end a back--end (inaczej nie mozna )
 public class GameUserController {
 
     @Autowired
@@ -30,7 +28,7 @@ public class GameUserController {
             return new ResponseMessage<>(StatusResponse.OK, null, registrationResult.get());
         }
 
-        throw new IllegalArgumentException();
+        return new ResponseMessage<>(StatusResponse.REQUEST_ERROR, "Unable to register user!", null);
 
     }
 
@@ -39,9 +37,9 @@ public class GameUserController {
         Optional<GameUser> registrationResult = gameUserService.tryLogin(userData);
 
         if(registrationResult.isPresent()){
-            return new ResponseMessage<>(StatusResponse.OK, "Logged in", registrationResult.get());
+            return new ResponseMessage<>(StatusResponse.OK, "Logged in.", registrationResult.get());
         }
 
-        return new ResponseMessage<>(StatusResponse.REQUEST_ERROR, "Unable to register", null);
+        return new ResponseMessage<>(StatusResponse.REQUEST_ERROR, "Invalid user or password.", null);
     }
 }

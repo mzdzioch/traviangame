@@ -1,6 +1,7 @@
 package com.sda.webgame.services;
 
 import com.sda.webgame.model.*;
+import com.sda.webgame.model.dto.ColonyDto;
 import com.sda.webgame.model.dto.CreateBuildingDto;
 import com.sda.webgame.model.dto.CreateColonyDto;
 import com.sda.webgame.model.factory.ColonyFactory;
@@ -13,7 +14,10 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ColonyService implements IColonyService {
@@ -79,6 +83,13 @@ public class ColonyService implements IColonyService {
     @Override
     public Optional<Colony> getColonyByField(GameWorldField gameWorldField) {
         Optional<Colony> colony = colonyRepository.getColonyByField(gameWorldField);
+
+        if(colony.isPresent()){
+            Colony retrieved = colony.get();
+            retrieved.getLotList().sort(Comparator.comparingLong(ColonyLot::getId));
+
+            return Optional.ofNullable(retrieved);
+        }
         return colony;
     }
 
@@ -105,5 +116,21 @@ public class ColonyService implements IColonyService {
     public Optional<ColonyLot> getLot(Long id) {
         Optional<ColonyLot> colonyLot = colonyLotRepository.getById(id);
         return colonyLot;
+    }
+
+    @Override
+    public List<ColonyDto> getColoniesByOwner(Long userId) {
+        Optional<GameUser> userOptional = gameUserRepository.getGameUserById(userId);
+        if (userOptional.isPresent()) {
+            GameUser user = userOptional.get();
+
+            List<Colony> colonies = colonyRepository.getAllByOwner(user);
+
+            return colonies.stream()
+                    .map((c) -> new ColonyDto(c.getField().getId(), c.getName()))
+                    .collect(Collectors.toList());
+        }
+        return List.of();
+
     }
 }

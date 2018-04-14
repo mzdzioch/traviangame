@@ -28,14 +28,14 @@ public class GameWorldController {
     @Autowired
     private IColonyService colonyService;
 
-    @RequestMapping(path = "create", method = RequestMethod.POST)
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
     public ResponseMessage<GameWorld> createGameWorld(@RequestBody GameWorldDto dto){
         Optional<GameWorld> gameWorld = gameWorldService.createGameWorld(dto);
 
         if(gameWorld.isPresent()){
             return new ResponseMessage<>(StatusResponse.OK, "World added.", gameWorld.get());
         } else {
-            return new ResponseMessage<>(StatusResponse.SERVER_ERROR, "Error adding world", null);
+            return new ResponseMessage<>(StatusResponse.SERVER_ERROR, "Error adding world.", null);
         }
 
     }
@@ -88,7 +88,7 @@ public class GameWorldController {
 
             return new ResponseMessage<>(
                     StatusResponse.OK,
-                    "FieldEmpty",
+                    null,
                     new GameWorldFieldInfoDto(gameWorldField.get(), colony.orElse(null)));
         } else {
             return new ResponseMessage<>(

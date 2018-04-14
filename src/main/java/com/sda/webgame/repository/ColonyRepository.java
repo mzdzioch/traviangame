@@ -1,13 +1,11 @@
 package com.sda.webgame.repository;
 
-import com.sda.webgame.model.Colony;
-import com.sda.webgame.model.ColonyLot;
-import com.sda.webgame.model.GameWorld;
-import com.sda.webgame.model.GameWorldField;
+import com.sda.webgame.model.*;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,4 +18,5 @@ public interface ColonyRepository extends CrudRepository<Colony, Long>{
 
     Optional<Colony> getColonyByField(GameWorldField gameWorldField);
 
+    List<Colony> getAllByOwner(GameUser user);
 }
